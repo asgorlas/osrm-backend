@@ -193,36 +193,44 @@ struct FloatCoordinate;
  */
 struct Coordinate
 {
-    FixedLongitude lon;
-    FixedLatitude lat;
+    FixedLongitude x;
+    FixedLatitude y;
+    FixedLatitude z;
 
-    Coordinate() : lon{std::numeric_limits<int>::min()}, lat{std::numeric_limits<int>::min()} {}
-
-    Coordinate(const FloatCoordinate &other);
-
-    Coordinate(const FloatLongitude lon_, const FloatLatitude lat_)
-        : Coordinate(toFixed(lon_), toFixed(lat_))
+    Coordinate()
+        : x{std::numeric_limits<int>::min()}, y{std::numeric_limits<int>::min()},
+          z{std::numeric_limits<int>::min()}
     {
     }
 
-    Coordinate(const UnsafeFloatLongitude lon_, const UnsafeFloatLatitude lat_)
-        : Coordinate(toFixed(lon_), toFixed(lat_))
+    // Coordinate(const FloatCoordinate &other);
+
+    Coordinate(const FloatLongitude x_, const FloatLatitude y_, const FloatLatitude z_)
+        : Coordinate(toFixed(x_), toFixed(y_), toFixed(z_))
     {
     }
 
-    Coordinate(const FixedLongitude lon_, const FixedLatitude lat_) : lon(lon_), lat(lat_) {}
+    // Coordinate(const UnsafeFloatLongitude lon_, const UnsafeFloatLatitude lat_)
+    //     : Coordinate(toFixed(lon_), toFixed(lat_))
+    // {
+    // }
 
-    template <class T> Coordinate(const T &coordinate) : lon(coordinate.lon), lat(coordinate.lat)
+    Coordinate(const FixedLongitude x_, const FixedLatitude y_, const FixedLatitude z_)
+        : x(x_), y(y_), z(z_)
     {
-        static_assert(!std::is_same<T, Coordinate>::value,
-                      "This constructor should not be used for Coordinates");
-        static_assert(std::is_same<decltype(lon), decltype(coordinate.lon)>::value,
-                      "coordinate types incompatible");
-        static_assert(std::is_same<decltype(lat), decltype(coordinate.lat)>::value,
-                      "coordinate types incompatible");
     }
 
-    bool IsValid() const;
+    // template <class T> Coordinate(const T &coordinate) : lon(coordinate.lon), lat(coordinate.lat)
+    // {
+    //     static_assert(!std::is_same<T, Coordinate>::value,
+    //                   "This constructor should not be used for Coordinates");
+    //     static_assert(std::is_same<decltype(lon), decltype(coordinate.lon)>::value,
+    //                   "coordinate types incompatible");
+    //     static_assert(std::is_same<decltype(lat), decltype(coordinate.lat)>::value,
+    //                   "coordinate types incompatible");
+    // }
+
+    // bool IsValid() const;
     friend bool operator==(const Coordinate lhs, const Coordinate rhs);
     friend bool operator!=(const Coordinate lhs, const Coordinate rhs);
 };
@@ -250,10 +258,10 @@ struct FloatCoordinate
     {
     }
 
-    FloatCoordinate(const Coordinate other)
-        : FloatCoordinate(toFloating(other.lon), toFloating(other.lat))
-    {
-    }
+    // FloatCoordinate(const Coordinate other)
+    //     : FloatCoordinate(toFloating(other.lon), toFloating(other.lat))
+    // {
+    // }
 
     FloatCoordinate(const FixedLongitude lon_, const FixedLatitude lat_)
         : FloatCoordinate(toFloating(lon_), toFloating(lat_))
@@ -270,10 +278,10 @@ struct FloatCoordinate
 bool operator==(const Coordinate lhs, const Coordinate rhs);
 bool operator==(const FloatCoordinate lhs, const FloatCoordinate rhs);
 
-inline Coordinate::Coordinate(const FloatCoordinate &other)
-    : Coordinate(toFixed(other.lon), toFixed(other.lat))
-{
-}
+// inline Coordinate::Coordinate(const FloatCoordinate &other)
+//     : Coordinate(toFixed(other.lon), toFixed(other.lat))
+// {
+// }
 } // namespace util
 } // namespace osrm
 

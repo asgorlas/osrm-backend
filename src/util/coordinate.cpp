@@ -15,13 +15,13 @@
 namespace osrm::util
 {
 
-bool Coordinate::IsValid() const
-{
-    return !(lat > FixedLatitude{static_cast<std::int32_t>(90 * COORDINATE_PRECISION)} ||
-             lat < FixedLatitude{static_cast<std::int32_t>(-90 * COORDINATE_PRECISION)} ||
-             lon > FixedLongitude{static_cast<std::int32_t>(180 * COORDINATE_PRECISION)} ||
-             lon < FixedLongitude{static_cast<std::int32_t>(-180 * COORDINATE_PRECISION)});
-}
+// bool Coordinate::IsValid() const
+// {
+//     return !(lat > FixedLatitude{static_cast<std::int32_t>(90 * COORDINATE_PRECISION)} ||
+//              lat < FixedLatitude{static_cast<std::int32_t>(-90 * COORDINATE_PRECISION)} ||
+//              lon > FixedLongitude{static_cast<std::int32_t>(180 * COORDINATE_PRECISION)} ||
+//              lon < FixedLongitude{static_cast<std::int32_t>(-180 * COORDINATE_PRECISION)});
+// }
 
 bool FloatCoordinate::IsValid() const
 {
@@ -31,7 +31,7 @@ bool FloatCoordinate::IsValid() const
 
 bool operator==(const Coordinate lhs, const Coordinate rhs)
 {
-    return lhs.lat == rhs.lat && lhs.lon == rhs.lon;
+    return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z;
 }
 bool operator==(const FloatCoordinate lhs, const FloatCoordinate rhs)
 {

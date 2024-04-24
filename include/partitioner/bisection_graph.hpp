@@ -22,8 +22,12 @@ namespace osrm::partitioner
 // located at for use in the inertial flow sorting by slope.
 struct BisectionNode
 {
-    BisectionNode(const util::Coordinate &coordinate_ = {util::FloatLongitude{0},
-                                                         util::FloatLatitude{0}},
+    BisectionNode(const util::Coordinate &coordinate_ =
+                      {
+                          util::FloatLongitude{0},
+                          util::FloatLatitude{0},
+                          util::FloatLatitude{0},
+                      },
                   const NodeID original_id_ = SPECIAL_NODEID)
         : coordinate(coordinate_), original_id(original_id_)
     {
